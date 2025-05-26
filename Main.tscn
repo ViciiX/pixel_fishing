@@ -1,0 +1,27 @@
+[gd_scene load_steps=9 format=3 uid="uid://d1pngmhdchjbf"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_2r5hm"]
+[ext_resource type="PackedScene" uid="uid://d0sq4d4745tx4" path="res://scene/Map/seaside.tscn" id="2_6wi6f"]
+[ext_resource type="PackedScene" uid="uid://jr0sjy1gskmu" path="res://scene/Fisherman.tscn" id="2_evk8v"]
+[ext_resource type="PackedScene" uid="uid://dq3jp1yydnakr" path="res://scene/animation/change_scene.tscn" id="3_03maa"]
+[ext_resource type="PackedScene" uid="uid://leniryvdpqvt" path="res://scene/UI.tscn" id="3_h8am2"]
+[ext_resource type="PackedScene" uid="uid://ctw8ghddgqnoy" path="res://MouseManager.tscn" id="4_kqm7r"]
+[ext_resource type="PackedScene" uid="uid://c46ynno1outyf" path="res://scene/animation/popup.tscn" id="4_ymn8o"]
+[ext_resource type="PackedScene" uid="uid://c6r8jj42hba24" path="res://scene/Map/change_skin.tscn" id="7_kinde"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_2r5hm")
+fisherman_scene = ExtResource("2_evk8v")
+anim_change_scene = ExtResource("3_03maa")
+anim_popup = ExtResource("4_ymn8o")
+change_skin_scene = ExtResource("7_kinde")
+
+[node name="seaside" parent="." instance=ExtResource("2_6wi6f")]
+
+[node name="UI" parent="." instance=ExtResource("3_h8am2")]
+
+[node name="MouseManager" parent="." instance=ExtResource("4_kqm7r")]
+
+[connection signal="change_skin" from="seaside" to="." method="_on_seaside_change_skin"]
+[connection signal="game_started" from="UI" to="." method="game_start"]
+[connection signal="game_started" from="UI" to="MouseManager" method="game_start"]

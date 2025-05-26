@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://jr0sjy1gskmu"]
+
+[ext_resource type="Script" path="res://scene/fisherman.gd" id="1_yqblc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqpkb"]
+size = Vector2(32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8dwud"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"down_fish",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"down_static",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"side",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"side_fish",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"side_static",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"up_fish",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"up_static",
+"speed": 5.0
+}]
+
+[node name="Fisherman" type="CharacterBody2D"]
+script = ExtResource("1_yqblc")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lqpkb")
+
+[node name="Anima" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8dwud")
+animation = &"side_fish"

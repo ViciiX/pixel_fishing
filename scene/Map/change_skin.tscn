@@ -1,0 +1,223 @@
+[gd_scene load_steps=13 format=3 uid="uid://c6r8jj42hba24"]
+
+[ext_resource type="Script" path="res://scene/Map/change_skin.gd" id="1_ji7ee"]
+[ext_resource type="FontFile" uid="uid://ba7mlqf3po6g" path="res://src/font/fusion-pixel-8px-monospaced.otc" id="2_sxb2b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7dq3m"]
+line_spacing = 0.0
+font = ExtResource("2_sxb2b")
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uqmb1"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.313726, 0.635294, 0.85098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vg8ck"]
+bg_color = Color(0.105882, 0.945098, 0.231373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a5foo"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.313726, 0.635294, 0.85098, 0.501961)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fufua"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.867048, 0.476715, 0.364696, 1)
+border_color = Color(0.329026, 5.08381e-07, 1.3236e-07, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2hql"]
+bg_color = Color(0.105752, 0.946516, 0.232013, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_krvda"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.866667, 0.478431, 0.364706, 0.501961)
+border_color = Color(0.329026, 5.08381e-07, 1.3236e-07, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_yjb22"]
+font = ExtResource("2_sxb2b")
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6bnn1"]
+font = ExtResource("2_sxb2b")
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_c4jxy"]
+line_spacing = 1.0
+font = ExtResource("2_sxb2b")
+font_size = 8
+font_color = Color(0.368627, 0.368627, 0.368627, 0.447059)
+outline_color = Color(1, 1, 1, 0)
+shadow_size = 0
+
+[node name="change_skin" type="Node2D"]
+script = ExtResource("1_ji7ee")
+
+[node name="Control" type="Control" parent="."]
+texture_filter = 5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 256.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 256.0
+color = Color(0.843137, 1, 1, 1)
+
+[node name="title" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 40.0
+grow_horizontal = 2
+text = "选择皮肤"
+label_settings = SubResource("LabelSettings_7dq3m")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="center_sprite" type="Sprite2D" parent="Control"]
+position = Vector2(128, 88)
+scale = Vector2(2, 2)
+
+[node name="left_sprite" type="Sprite2D" parent="Control"]
+position = Vector2(40, 88)
+
+[node name="right_sprite" type="Sprite2D" parent="Control"]
+position = Vector2(216, 88)
+
+[node name="import_button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 0.501961)
+theme_override_fonts/font = ExtResource("2_sxb2b")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uqmb1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vg8ck")
+theme_override_styles/normal = SubResource("StyleBoxFlat_a5foo")
+keep_pressed_outside = true
+text = "导入皮肤"
+
+[node name="FileDialog" type="FileDialog" parent="Control/import_button"]
+mode = 2
+title = "Open a File"
+size = Vector2i(343, 256)
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+cancel_button_text = "取消"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.zip ; 皮肤压缩包")
+use_native_dialog = true
+
+[node name="delete_button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -56.0
+offset_right = 100.0
+offset_bottom = -30.0
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 0.501961)
+theme_override_fonts/font = ExtResource("2_sxb2b")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fufua")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_c2hql")
+theme_override_styles/normal = SubResource("StyleBoxFlat_krvda")
+text = "删除该皮肤"
+
+[node name="skin_name" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 16.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "柴犬"
+label_settings = SubResource("LabelSettings_yjb22")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="author_name" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 48.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "作者: ViciiX
+"
+label_settings = SubResource("LabelSettings_6bnn1")
+
+[node name="hint" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -27.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "左右方向键：切换皮肤
+上下方向键：查看该皮肤的不同造型
+空格：选择该皮肤
+ESC：返回"
+label_settings = SubResource("LabelSettings_c4jxy")
+
+[connection signal="pressed" from="Control/import_button" to="." method="_on_import_button_pressed"]
+[connection signal="file_selected" from="Control/import_button/FileDialog" to="." method="import_skin"]
+[connection signal="pressed" from="Control/delete_button" to="." method="delete_skin"]

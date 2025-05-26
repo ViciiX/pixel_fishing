@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwvsoooms4qn1"]
+
+[ext_resource type="Texture2D" uid="uid://fhcvsrsqaq8s" path="res://src/UI/fishing/power_bar.png" id="1_0vtix"]
+[ext_resource type="Script" path="res://scene/power_bar.gd" id="1_5vo0h"]
+[ext_resource type="Texture2D" uid="uid://37rx02epochv" path="res://src/UI/fishing/pointer.png" id="2_ayk0f"]
+
+[node name="power_bar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_5vo0h")
+
+[node name="bar" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 16.0
+texture = ExtResource("1_0vtix")
+
+[node name="mr_green" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 6.0
+offset_bottom = 12.0
+color = Color(0, 0.941176, 0, 1)
+
+[node name="mrs_green" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 5.0
+offset_bottom = 11.0
+color = Color(0, 0.943033, 0, 1)
+
+[node name="pointer" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = -4.0
+offset_right = 18.0
+offset_bottom = 23.0
+texture = ExtResource("2_ayk0f")

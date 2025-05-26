@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq3jp1yydnakr"]
+
+[ext_resource type="Script" path="res://scene/animation/change_scene.gd" id="1_6xxu0"]
+
+[node name="change_scene" type="ColorRect"]
+z_index = 1
+offset_right = 256.0
+offset_bottom = 256.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_6xxu0")

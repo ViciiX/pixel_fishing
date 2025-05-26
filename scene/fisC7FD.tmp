@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://jr0sjy1gskmu"]
+
+[ext_resource type="Texture2D" uid="uid://cey17rkqrerj" path="res://src/fisherman/dog_1/fisherman_dog_1_front.png" id="1_iesgy"]
+[ext_resource type="Script" path="res://scene/fisherman.gd" id="1_yqblc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqpkb"]
+size = Vector2(32, 64)
+
+[node name="Fisherman" type="CharacterBody2D"]
+script = ExtResource("1_yqblc")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_iesgy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lqpkb")

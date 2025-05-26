@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3 uid="uid://jr0sjy1gskmu"]
+
+[ext_resource type="Script" path="res://scene/Fisherman.gd" id="1_ifrkh"]
+[ext_resource type="PackedScene" uid="uid://v3s0lxigdnbp" path="res://scene/fishing_string.tscn" id="2_k5ijo"]
+[ext_resource type="PackedScene" uid="uid://bwvsoooms4qn1" path="res://scene/power_bar.tscn" id="3_kgsak"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqpkb"]
+size = Vector2(1, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8dwud"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"down_static",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"down_wooden_f",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"side",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"side_static",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"side_wooden_f",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"up_static",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"up_wooden_f",
+"speed": 5.0
+}]
+
+[node name="Fisherman" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_ifrkh")
+metadata/_edit_group_ = true
+
+[node name="fishing_string" parent="." instance=ExtResource("2_k5ijo")]
+visible = false
+z_index = 0
+
+[node name="power_bar" parent="." instance=ExtResource("3_kgsak")]
+visible = false
+offset_left = -32.0
+offset_top = -50.0
+offset_right = 32.0
+offset_bottom = -34.0
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lqpkb")
+
+[node name="Anima" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+sprite_frames = SubResource("SpriteFrames_8dwud")
+animation = &"up_wooden_f"
+centered = false
+
+[node name="Fisherman" type="Area2D" parent="."]
+
+[node name="Collision2" type="CollisionShape2D" parent="Fisherman"]
+shape = SubResource("RectangleShape2D_lqpkb")
+
+[node name="fish_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
