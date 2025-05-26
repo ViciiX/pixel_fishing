@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dq3jp1yydnakr"]
 
-[ext_resource type="Script" path="res://scene/animation/change_scene.gd" id="1_6xxu0"]
+[ext_resource type="Script" uid="uid://b3km85w7nd23q" path="res://scene/animation/change_scene.gd" id="1_6xxu0"]
 
 [node name="change_scene" type="ColorRect"]
 z_index = 1

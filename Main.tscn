@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d1pngmhdchjbf"]
 
-[ext_resource type="Script" path="res://Main.gd" id="1_2r5hm"]
+[ext_resource type="Script" uid="uid://bar81is6a87ha" path="res://scripts/Main.gd" id="1_2r5hm"]
 [ext_resource type="PackedScene" uid="uid://d0sq4d4745tx4" path="res://scene/Map/seaside.tscn" id="2_6wi6f"]
 [ext_resource type="PackedScene" uid="uid://jr0sjy1gskmu" path="res://scene/Fisherman.tscn" id="2_evk8v"]
 [ext_resource type="PackedScene" uid="uid://dq3jp1yydnakr" path="res://scene/animation/change_scene.tscn" id="3_03maa"]

@@ -13,14 +13,14 @@ config_version=5
 config/name="吊鱼"
 config/description="hello, world"
 run/main_scene="res://Main.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
-Util="*res://Util.gd"
-GlobalConst="*res://GlobalConst.gd"
+Util="*res://scripts/Util.gd"
+GlobalConst="*res://scripts/GlobalConst.gd"
 AnimationManager="*res://scene/animation/animation_manager.gd"
 
 [debug]

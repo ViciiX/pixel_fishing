@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bwvsoooms4qn1"]
 
 [ext_resource type="Texture2D" uid="uid://fhcvsrsqaq8s" path="res://src/UI/fishing/power_bar.png" id="1_0vtix"]
-[ext_resource type="Script" path="res://scene/power_bar.gd" id="1_5vo0h"]
+[ext_resource type="Script" uid="uid://bygglh1upv3uh" path="res://scene/power_bar.gd" id="1_5vo0h"]
 [ext_resource type="Texture2D" uid="uid://37rx02epochv" path="res://src/UI/fishing/pointer.png" id="2_ayk0f"]
 
 [node name="power_bar" type="Control"]

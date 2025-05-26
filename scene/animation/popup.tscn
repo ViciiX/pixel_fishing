@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c46ynno1outyf"]
 
-[ext_resource type="Script" path="res://scene/animation/popup.gd" id="1_s3xlx"]
+[ext_resource type="Script" uid="uid://c0s2dh3q2hnhm" path="res://scene/animation/popup.gd" id="1_s3xlx"]
 [ext_resource type="FontFile" uid="uid://ba7mlqf3po6g" path="res://src/font/fusion-pixel-8px-monospaced.otc" id="1_stv4g"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mixta"]

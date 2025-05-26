@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://c6r8jj42hba24"]
 
-[ext_resource type="Script" path="res://scene/Map/change_skin.gd" id="1_ji7ee"]
-[ext_resource type="FontFile" uid="uid://ba7mlqf3po6g" path="res://src/font/fusion-pixel-8px-monospaced.otc" id="2_sxb2b"]
+[ext_resource type="Script" uid="uid://ck10qn8uf5tqk" path="res://scene/Map/change_skin.gd" id="1_ji7ee"]
+[ext_resource type="FontFile" uid="uid://bj3rj8djitljt" path="res://src/font/fusion-pixel-8px-monospaced.otc" id="2_sxb2b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7dq3m"]
 line_spacing = 0.0
@@ -117,6 +117,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="center_sprite" type="Sprite2D" parent="Control"]
+texture_filter = 1
 position = Vector2(128, 88)
 scale = Vector2(2, 2)
 

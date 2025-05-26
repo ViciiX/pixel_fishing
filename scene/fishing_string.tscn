@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://v3s0lxigdnbp"]
 
-[ext_resource type="Script" path="res://scene/fishing_string.gd" id="1_6ue0v"]
+[ext_resource type="Script" uid="uid://dl8uwapg8f3yj" path="res://scene/fishing_string.gd" id="1_6ue0v"]
 [ext_resource type="Texture2D" uid="uid://cgwnoh24fn2um" path="res://src/fishing/buoy/wooden_buoy.png" id="2_6xea0"]
 [ext_resource type="Texture2D" uid="uid://sw1vjl7snpiw" path="res://src/UI/fishing/spray.png" id="3_f4mhy"]
 

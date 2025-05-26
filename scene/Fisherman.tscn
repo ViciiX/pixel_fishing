@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://jr0sjy1gskmu"]
 
-[ext_resource type="Script" path="res://scene/Fisherman.gd" id="1_ifrkh"]
+[ext_resource type="Script" uid="uid://srmqlsere75y" path="res://scene/Fisherman.gd" id="1_ifrkh"]
 [ext_resource type="PackedScene" uid="uid://v3s0lxigdnbp" path="res://scene/fishing_string.tscn" id="2_k5ijo"]
 [ext_resource type="PackedScene" uid="uid://bwvsoooms4qn1" path="res://scene/power_bar.tscn" id="3_kgsak"]
 
