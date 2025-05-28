@@ -3,32 +3,43 @@ extends Node2D
 signal back
 var select_list = Array()
 var show_list = Array()
+
 func _ready() -> void:
 	fisherman.scan_skins()
 	select_list = fisherman.skin_list.keys()
 	reload()
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("left_key"):
-		if select_list.back() != null:
+	if Input.is_action_pressed("left_key"):
+		if select_list.back() != null and $change_timer.time_left == 0:
 			select_list.push_front(select_list.pop_back())
 			reload()
-	if Input.is_action_just_pressed("right_key"):
+			$change_timer.start()
+
+	if Input.is_action_pressed("right_key") and $change_timer.time_left == 0:
 		if select_list.size() > 1 and select_list[1] != null:
 			select_list.push_back(select_list.pop_front())
 			reload()
-	if Input.is_action_just_pressed("up_key"):
-		show_list.push_front(show_list.pop_back())
-		$Control/center_sprite.texture = Util.load_to_texture(fisherman.skin_list[select_list[0]]+show_list[0])
-	if Input.is_action_just_pressed("down_key"):
-		if show_list.size() > 1 and show_list[1] != null:
+			$change_timer.start()
+
+	if Input.is_action_pressed("up_key"):
+		if $change_timer.time_left == 0:
+			show_list.push_front(show_list.pop_back())
+			$Control/center_sprite.texture = Util.load_to_texture(fisherman.skin_list[select_list[0]] + show_list[0])
+			$change_timer.start()
+			
+	if Input.is_action_pressed("down_key"):
+		if show_list.size() > 1 and show_list[1] != null and $change_timer.time_left == 0:
 			show_list.push_back(show_list.pop_front())
-			$Control/center_sprite.texture = Util.load_to_texture(fisherman.skin_list[select_list[0]]+show_list[0])
+			$Control/center_sprite.texture = Util.load_to_texture(fisherman.skin_list[select_list[0]] + show_list[0])
+			$change_timer.start()
+
 	if Input.is_action_just_pressed("select"):
 		fisherman.skin = select_list[0]
 		fisherman.load_skin()
 		fisherman.get_node("fishing_string").locate()
 		emit_signal("back")
+
 	if Input.is_action_just_pressed("back"):
 		emit_signal("back")
 
@@ -41,17 +52,17 @@ func reload():
 			"wait_time": 1,
 			"bgcolor": Color(Color.DIM_GRAY,0.7),
 			"font_size": 16
-		},$Control)
+		}, $Control)
 	for n in fisherman.skin_list.keys():
 		if select_list.has(n) == false:
 			select_list.push_back(n)
 	if select_list.size() < 3:
 		select_list.resize(3)
-	show_skin.call(-1,$Control/left_sprite)
-	show_skin.call(0,$Control/center_sprite)
-	show_skin.call(1,$Control/right_sprite)
-	$Control/skin_name.text = Util.get_value_from_config(fisherman.skin_list[select_list[0]]+"config.json","name","未命名皮肤")
-	$Control/author_name.text = "作者:"+Util.get_value_from_config(fisherman.skin_list[select_list[0]]+"config.json","author","未知")
+	show_skin.call(-1, $Control/left_sprite)
+	show_skin.call(0, $Control/center_sprite)
+	show_skin.call(1, $Control/right_sprite)
+	$Control/skin_name.text = Util.get_value_from_config(fisherman.skin_list[select_list[0]]+"config.json", "name", "未命名皮肤")
+	$Control/author_name.text = "作者:"+Util.get_value_from_config(fisherman.skin_list[select_list[0]]+"config.json", "author", "未知")
 	var dir = DirAccess.open(fisherman.skin_list[select_list[0]])
 	show_list = Array(dir.get_files()).filter(func(file_name): return file_name.ends_with(".png"))
 

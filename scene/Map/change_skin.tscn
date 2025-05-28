@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://c6r8jj42hba24"]
 
 [ext_resource type="Script" uid="uid://ck10qn8uf5tqk" path="res://scene/Map/change_skin.gd" id="1_ji7ee"]
-[ext_resource type="FontFile" uid="uid://bj3rj8djitljt" path="res://src/font/fusion-pixel-8px-monospaced.otc" id="2_sxb2b"]
+[ext_resource type="FontFile" uid="uid://ba7mlqf3po6g" path="res://src/font/fusion-pixel-8px-monospaced.otc" id="2_sxb2b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7dq3m"]
 line_spacing = 0.0
@@ -218,6 +218,11 @@ text = "左右方向键：切换皮肤
 空格：选择该皮肤
 ESC：返回"
 label_settings = SubResource("LabelSettings_c4jxy")
+
+[node name="change_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+ignore_time_scale = true
 
 [connection signal="pressed" from="Control/import_button" to="." method="_on_import_button_pressed"]
 [connection signal="file_selected" from="Control/import_button/FileDialog" to="." method="import_skin"]

@@ -19,40 +19,51 @@ func _ready():
 	$Anima.play()
 
 func scan_skins():
+	"""
+	@brief: 扫描皮肤并添加到皮肤列表
+	"""
 	logger.normal("开始扫描皮肤")
 	skin_list = {}
 	var count = 0
-	var dir = DirAccess.open("res://src/fisherman")
+	var dir = DirAccess.open("res://src/fisherman") #自带皮肤
 	for sname in dir.get_directories():
 		skin_list[sname] = "res://src/fisherman/%s/" % sname
 		count += 1
 	logger.normal("原生皮肤扫描完毕，共%s个" % count)
 	count = 0
-	dir = DirAccess.open("user://fisherman")
+	dir = DirAccess.open("user://fisherman") #自定义皮肤
 	for sname in dir.get_directories():
 		skin_list[sname] = "user://fisherman/%s/" % sname
 		count += 1
 	logger.normal("自定义皮肤扫描完毕，共%s个" % count)
 	return skin_list
 
-func load_skin(sname = skin):#加载皮肤
+func load_skin(sname = skin):
+	"""
+	@brief: 加载指定皮肤并显示
+	@param: sname 皮肤名
+	"""
 	var log_i = []
 	logger.normal("开始加载皮肤：%s" % sname)
 	var spath = skin_list.get(sname,"")
 	if spath == "":
 		logger.error("未找到皮肤")
 		return ERR_FILE_NOT_FOUND
+	
+	#加载皮肤配置文件
 	var config = JSON.new()
 	var content = Util.load_file("%sconfig.json" % spath)
 	if typeof(content) == TYPE_BOOL:
 		logger.warn("未找到皮肤配置文件,已用空白替代")
 		content = "{}"
 	var error = config.parse(content)
+	
 	var img
 	if FileAccess.file_exists(spath + "down_1.png"):
 		img = Image.load_from_file(spath + "down_1.png")
 	else:
 		img = Image.load_from_file(spath + "down_static.png")
+	
 	var crect = img.get_used_rect()
 	var isChanged = false
 	if error == OK:
@@ -67,7 +78,7 @@ func load_skin(sname = skin):#加载皮肤
 		vec = config.data.get("offset",Array())
 		if vec.size() == 0:
 			logger.normal("未找到纹理偏移校准，已自动生成")
-			vec = [-(crect.position.x+crect.size.x/2),-(crect.position.y+crect.size.y/2)]
+			vec = [-(crect.position.x+crect.size.x / 2), -(crect.position.y+crect.size.y / 2)]
 			config.data["offset"] = vec
 			isChanged = true
 		$Anima.offset = Vector2(vec[0],vec[1])
@@ -79,9 +90,9 @@ func load_skin(sname = skin):#加载皮肤
 			if fname.ends_with("_static"):
 				log_i.append(fname)
 				if FileAccess.file_exists("%s%s.png" % [spath,fname]):
-					frame.add_frame(fname,Util.load_to_texture("%s%s.png" % [spath,fname]))
+					frame.add_frame(fname,Util.load_to_texture("{path}{name}.png".format({"path": spath, "name": fname})))
 				else:
-					frame.add_frame(fname,Util.load_to_texture("{path}{name}.png".format({"path":spath,"name":fname.replace("static","1")})))
+					frame.add_frame(fname,Util.load_to_texture("{path}{name}.png".format({"path": spath, "name": fname.replace("static","1")})))
 			elif fname.ends_with("_f"):
 				log_i.append(fname)
 				frame.add_frame(fname,Util.load_to_texture("%s%s.png" % [spath,fname]))
@@ -112,11 +123,11 @@ func load_skin(sname = skin):#加载皮肤
 					else:
 						break
 		if isChanged:
-			Util.save_file("%sconfig.json" % spath,JSON.stringify(config.data,"	"))
+			Util.save_file("%sconfig.json" % spath, JSON.stringify(config.data, "\t"))
 		skin_config = config
 	else:
 		logger.error("解析皮肤配置信息时出现错误，错误码：%s" % error)
-	logger.normal("已加载动画： {a}".format({"a":", ".join(log_i)}))
+	logger.normal("已加载皮肤动画： {a}".format({"a":", ".join(log_i)}))
 
 func _physics_process(delta):
 	if state == "move":

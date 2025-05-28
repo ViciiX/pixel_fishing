@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://d0sq4d4745tx4"]
 
-[ext_resource type="Texture2D" uid="uid://cqtjxcxculiy1" path="res://src/sea.png" id="1_d6ts0"]
+[ext_resource type="Texture2D" uid="uid://lxilvdwjoqfr" path="res://src/sea.png" id="1_d6ts0"]
 [ext_resource type="Script" uid="uid://dmsh2r047ococ" path="res://scene/Map/seaside.gd" id="1_ddhkp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqs6e"]

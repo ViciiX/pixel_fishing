@@ -40,7 +40,7 @@ func _on_seaside_change_skin() -> void:
 			add_child(change_skin_scene.instantiate())
 			$change_skin.back.connect(_on_change_skin_back)
 			$Fisherman.position = Vector2(128,210)
-		AnimationManager.new("change_scene",{ "call_func": ff },self)
+		AnimationManager.new("change_scene", { "call_func": ff }, self)
 	f.call_deferred()
 	
 func _on_change_skin_back() -> void:
@@ -49,7 +49,7 @@ func _on_change_skin_back() -> void:
 			$Fisherman.set_activiate(true)
 			$seaside.visible = true
 			$change_skin.queue_free()
-		AnimationManager.new("change_scene",{ "call_func": ff },self)
+		AnimationManager.new("change_scene", { "call_func": ff }, self)
 	f.call_deferred()
 
 func move_skins():
