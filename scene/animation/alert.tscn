@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://q3yq3hb3fscd"]
+[gd_scene load_steps=3 format=3 uid="uid://q3yq3hb3fscd"]
 
 [ext_resource type="Texture2D" uid="uid://cvotmvs023ie6" path="res://src/UI/fishing/alert.png" id="1_27ddg"]
+[ext_resource type="Script" uid="uid://b0qv1xltu6ig1" path="res://scene/animation/alert.gd" id="1_ssrnf"]
 
 [node name="alert" type="Node2D"]
+script = ExtResource("1_ssrnf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_27ddg")

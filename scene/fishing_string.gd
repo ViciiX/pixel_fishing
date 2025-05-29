@@ -74,7 +74,7 @@ func locate():
 	if loc.size() == 0:
 		if fm.direction == "right":
 			img.flip_x()
-		pos = Util.get_side_frist_pixel(img, fm.direction)
+		pos = Util.get_side_first_pixel(img, fm.direction)
 		pos += $"../Anima".offset
 	else:
 		pos = loc

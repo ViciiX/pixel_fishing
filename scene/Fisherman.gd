@@ -1,6 +1,23 @@
+"""
+@brief 渔夫，即玩家
+
+@var speed 移动速度
+@var is_moving 玩家是否在移动
+@var is_holding 玩家是否在蓄力扔竿
+@var anima 玩家正在执行的走路动画
+@var direction 玩家走路/面向的方向
+@var state 玩家的状态
+- move: 移动
+- fishing 钓鱼
+@var skin 玩家当前皮肤名
+@var skin_config 皮肤配置信息
+@var fishing_rod 钓竿品质
+@var skin_list 可用的皮肤列表，由scan_skins()更改
+"""
+
 extends CharacterBody2D
 @export var speed = 60
-var is_moving = false
+var is_moving: bool = false
 var is_holding: bool = false
 var logger = Logger.new("Fisherman")
 var anima = "down"
@@ -78,7 +95,7 @@ func load_skin(sname = skin):
 		vec = config.data.get("offset",Array())
 		if vec.size() == 0:
 			logger.normal("未找到纹理偏移校准，已自动生成")
-			vec = [-(crect.position.x+crect.size.x / 2), -(crect.position.y+crect.size.y / 2)]
+			vec = [-(crect.position.x + crect.size.x / 2), -(crect.position.y + crect.size.y / 2)]
 			config.data["offset"] = vec
 			isChanged = true
 		$Anima.offset = Vector2(vec[0],vec[1])
@@ -141,6 +158,7 @@ func _physics_process(delta):
 				if !$Anima.is_playing():
 					$Anima.set_frame(1)
 			is_moving = true
+		
 		if Input.is_action_pressed("move_down"):
 			move_and_collide(Vector2(0,speed*delta))
 			if !is_moving:
@@ -150,6 +168,7 @@ func _physics_process(delta):
 				if !$Anima.is_playing():
 					$Anima.set_frame(1)
 			is_moving = true
+		
 		if Input.is_action_pressed("move_left"):
 			move_and_collide(Vector2(0-speed*delta,0))
 			if !is_moving:
@@ -159,6 +178,7 @@ func _physics_process(delta):
 				if !$Anima.is_playing():
 					$Anima.set_frame(1)
 			is_moving = true
+		
 		if Input.is_action_pressed("move_right"):
 			move_and_collide(Vector2(speed*delta,0))
 			if !is_moving:
@@ -173,12 +193,14 @@ func _physics_process(delta):
 			if anima.ends_with("f") == false:
 				$Anima.set_animation("%s_static" % anima)
 				$Anima.stop()
+	
 	elif state == "fishing":
 		if is_holding:
 			is_holding = !is_moving
 			$Anima.position = Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0))
 		else:
 			$Anima.position = Vector2(0,0)
+			
 func _input(event):
 	if visible == true:
 		if state == "move" and !is_moving and $"../seaside".is_can_fishing:
@@ -194,6 +216,7 @@ func _input(event):
 					$Anima.set_animation("{anima}_{fr}_f".format({"anima":anima, "fr":fishing_rod}))
 					$Anima.play()
 					$power_bar.start()
+				AnimationManager.new("alert", {}, self)
 		elif state == "fishing":
 			if Input.is_action_just_released("fishing") and is_holding:
 				var mouse_pos = get_global_mouse_position()
