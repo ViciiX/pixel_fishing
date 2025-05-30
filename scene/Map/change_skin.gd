@@ -10,41 +10,41 @@ func _ready() -> void:
 	reload()
 
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("left_key"):
-		if select_list.back() != null and $change_timer.time_left == 0:
+	if (Input.is_action_pressed("left_key")):
+		if (select_list.back() != null and $change_timer.time_left == 0):
 			select_list.push_front(select_list.pop_back())
 			reload()
 			$change_timer.start()
 
-	if Input.is_action_pressed("right_key") and $change_timer.time_left == 0:
-		if select_list.size() > 1 and select_list[1] != null:
+	if (Input.is_action_pressed("right_key") and $change_timer.time_left == 0):
+		if (select_list.size() > 1 and select_list[1] != null):
 			select_list.push_back(select_list.pop_front())
 			reload()
 			$change_timer.start()
 
-	if Input.is_action_pressed("up_key"):
-		if $change_timer.time_left == 0:
+	if (Input.is_action_pressed("up_key")):
+		if ($change_timer.time_left == 0):
 			show_list.push_front(show_list.pop_back())
 			$Control/center_sprite.texture = Util.load_to_texture(fisherman.skin_list[select_list[0]] + show_list[0])
 			$change_timer.start()
 			
-	if Input.is_action_pressed("down_key"):
-		if show_list.size() > 1 and show_list[1] != null and $change_timer.time_left == 0:
+	if (Input.is_action_pressed("down_key")):
+		if (show_list.size() > 1 and show_list[1] != null and $change_timer.time_left == 0):
 			show_list.push_back(show_list.pop_front())
 			$Control/center_sprite.texture = Util.load_to_texture(fisherman.skin_list[select_list[0]] + show_list[0])
 			$change_timer.start()
 
-	if Input.is_action_just_pressed("select"):
+	if (Input.is_action_just_pressed("select")):
 		fisherman.skin = select_list[0]
 		fisherman.load_skin()
 		fisherman.get_node("fishing_string").locate()
 		emit_signal("back")
 
-	if Input.is_action_just_pressed("back"):
+	if (Input.is_action_just_pressed("back")):
 		emit_signal("back")
 
 func reload():
-	if select_list.size() < 1:
+	if (select_list.size() < 1):
 		get_parent().move_skins()
 		fisherman.scan_skins()
 		AnimationManager.new("popup",{
@@ -54,9 +54,9 @@ func reload():
 			"font_size": 16
 		}, $Control)
 	for n in fisherman.skin_list.keys():
-		if select_list.has(n) == false:
+		if (select_list.has(n) == false):
 			select_list.push_back(n)
-	if select_list.size() < 3:
+	if (select_list.size() < 3):
 		select_list.resize(3)
 	show_skin.call(-1, $Control/left_sprite)
 	show_skin.call(0, $Control/center_sprite)
@@ -67,12 +67,12 @@ func reload():
 	show_list = Array(dir.get_files()).filter(func(file_name): return file_name.ends_with(".png"))
 
 func show_skin(index,node):
-		if select_list[index] == null:
+		if (select_list[index] == null):
 			node.visible = false
 		else:
 			node.visible = true
 			var path = fisherman.skin_list[select_list[index]]
-			if FileAccess.file_exists(path+"down_1.png"):
+			if (FileAccess.file_exists(path+"down_1.png")):
 				node.texture = Util.load_to_texture(path+"down_1.png")
 			else:
 				node.texture = Util.load_to_texture(path+"down_static.png")	
@@ -86,7 +86,7 @@ func _on_import_button_pressed() -> void:
 func import_skin(path: String) -> void:
 	var zip = ZIPReader.new()
 	zip.open(path)
-	if Array(zip.get_files()).filter(func(file_name): return file_name.ends_with("/")).size() == 1 and zip.get_files()[0].ends_with("/"):
+	if (Array(zip.get_files()).filter(func(file_name): return file_name.ends_with("/")).size() == 1 and zip.get_files()[0].ends_with("/")):
 		Util.unzip(path,"user://fisherman/")
 		fisherman.scan_skins()
 		reload()

@@ -8,16 +8,16 @@ func unzip(from, to):
 	@return ERR_FILE_BAD_PATH | OK
 	"""
 	var zip = ZIPReader.new()
-	if zip.open(from) != OK:
+	if (zip.open(from) != OK):
 		return ERR_FILE_BAD_PATH 
-	if to[-1] != "/":
+	if (to[-1] != "/"):
 		to+="/"
-	if DirAccess.dir_exists_absolute(to) != true:
+	if (DirAccess.dir_exists_absolute(to) != true):
 		return ERR_FILE_CANT_OPEN
 	for file_name in zip.get_files():
-		if file_name.ends_with("/"):
+		if (file_name.ends_with("/")):
 			var dir = DirAccess.open(to)
-			if dir.dir_exists(file_name) == false:
+			if (dir.dir_exists(file_name) == false):
 				dir.make_dir(file_name)
 		else:
 			var f = FileAccess.open(to+file_name,FileAccess.WRITE)
@@ -52,10 +52,10 @@ func add_file(path, content, new_line = true):
 	@param new_line 追加前是否另起一行
 	"""
 	make_dirs(path)
-	if new_line:
+	if (new_line):
 		content += "\n"
 	var file = FileAccess.open(path, FileAccess.READ_WRITE)
-	if FileAccess.file_exists(path):
+	if (FileAccess.file_exists(path)):
 		file.seek_end()
 		file.store_string(content)
 	else:
@@ -69,8 +69,8 @@ func load_file(path, value = null):
 	@return 获取到的内容 | 默认值 | false
 	"""
 	var file = FileAccess.open(path, FileAccess.READ)
-	if file == null:
-		if value == null:
+	if (file == null):
+		if (value == null):
 			return false
 		else:
 			return value
@@ -86,7 +86,7 @@ func get_value_from_config(path, key, default_value = ""):
 	@return 获取到的值 | 默认值
 	"""
 	var content = load_file(path)
-	if typeof(content) == TYPE_BOOL:
+	if (typeof(content) == TYPE_BOOL):
 		return default_value
 	else:
 		var config = JSON.new()
@@ -113,10 +113,10 @@ func set_recursive(node: Object, prop_str: String, value):
 	var property = props.pop_back()
 	var rec_node = node
 	for prop in props:
-		if rec_node == null:
+		if (rec_node == null):
 			return false
 		rec_node = rec_node.get(prop)
-	if typeof(rec_node) == TYPE_OBJECT:
+	if (typeof(rec_node) == TYPE_OBJECT):
 		rec_node.set(property, value)
 		return true
 	else:
@@ -130,25 +130,25 @@ func get_side_first_pixel(img: Image, side: String):
 	@return 像素的坐标
 	up; down; left; right
 	"""
-	if side == "up": #从上往下，左上角
+	if (side == "up"): #从上往下，左上角
 		for h in range(img.get_height()):
 			for w in range(img.get_width()):
-				if img.get_pixel(w, h).a != 0:
+				if (img.get_pixel(w, h).a != 0):
 					return Vector2(w, h)
-	elif side == "down": #从下往上，右下角
+	elif (side == "down"): #从下往上，右下角
 		for h in range(img.get_height()-1, -1, -1):
 			for w in range(img.get_width()-1, -1, -1):
-				if img.get_pixel(w, h).a != 0:
+				if (img.get_pixel(w, h).a != 0):
 					return Vector2(w, h)
-	elif side == "left": #从左往右，左下角
+	elif (side == "left"): #从左往右，左下角
 		for w in range(img.get_width()):
 			for h in range(img.get_height()-1, -1, -1):
-				if img.get_pixel(w, h).a != 0:
+				if (img.get_pixel(w, h).a != 0):
 					return Vector2(w, h)
-	elif side == "right": #从右往左，右上角
+	elif (side == "right"): #从右往左，右上角
 		for w in range(img.get_width()-1, -1, -1):
 			for h in range(img.get_height()):
-				if img.get_pixel(w, h).a != 0:
+				if (img.get_pixel(w, h).a != 0):
 					return Vector2(w, h)
 	else:
 		return Vector2.ZERO

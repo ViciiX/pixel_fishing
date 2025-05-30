@@ -1,2 +1,10 @@
-完善了AnimationManager的代码
-添加新动画Alert
+2025.5.30 update
+
+- 修改
+为了美观，if语句全部加上括号
+AnimationManager现在作为一个节点
+完善整理部分代码
+
+- 新增
+AnimationManager停止动画函数stop()
+Fisherman钓鱼后上钩提示及检测

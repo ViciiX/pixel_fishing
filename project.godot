@@ -21,7 +21,7 @@ config/windows_native_icon="res://icon.ico"
 
 Util="*res://scripts/Util.gd"
 GlobalConst="*res://scripts/GlobalConst.gd"
-AnimationManager="*res://scene/animation/animation_manager.gd"
+AnimationManager="*res://AnimationManager.tscn"
 
 [debug]
 

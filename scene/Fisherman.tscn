@@ -85,6 +85,12 @@ centered = false
 [node name="Collision2" type="CollisionShape2D" parent="Fisherman"]
 shape = SubResource("RectangleShape2D_lqpkb")
 
-[node name="fish_timer" type="Timer" parent="."]
+[node name="throw_timer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="fishing_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="lift_hook" from="." to="." method="cancel_fishing"]
+[connection signal="timeout" from="fishing_timer" to="." method="fish_hooked"]

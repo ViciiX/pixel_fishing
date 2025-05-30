@@ -9,6 +9,7 @@ extends Node2D
 var wait_time = 0.3
 var is_shake = true
 var parent
+var shake_tween
 
 signal complete
 
@@ -24,12 +25,12 @@ func _ready():
 	pos += Vector2(rect.size)/5
 	position = pos
 	var tween = get_tree().create_tween()
-	var shake_tween = get_tree().create_tween().set_loops()
+	shake_tween = get_tree().create_tween().set_loops()
 	shake_tween.tween_callback(parent.shake.bind(1.0)).set_delay(0.01)
 	tween.tween_interval(wait_time)
-	var f = func():
-		complete.emit(self)
-		shake_tween.kill()
-		parent.shake(0)
-	tween.tween_callback(f)
-	
+	tween.tween_callback(stop)
+
+func stop():
+	complete.emit(self)
+	shake_tween.kill()
+	parent.shake(0)

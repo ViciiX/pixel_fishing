@@ -20,9 +20,9 @@ func init():
 	Logger.setup()
 	AnimationManager.scan()
 	var dir = DirAccess.open("user://")
-	if dir.dir_exists("fisherman") == false:
+	if (dir.dir_exists("fisherman") == false):
 		dir.make_dir("fisherman")
-	if dir.dir_exists("game_log") == false:
+	if (dir.dir_exists("game_log") == false):
 		dir.make_dir("game_log")
 
 func game_start():
@@ -55,7 +55,7 @@ func _on_change_skin_back() -> void:
 func move_skins():
 	var dir = DirAccess.open("res://src/fisherman/")
 	var files = dir.get_files()
-	if files.size() > 0:
+	if (files.size() > 0):
 		for file_name in files:
 			Util.unzip("res://src/fisherman/"+file_name,"user://fisherman")
 			logger.normal("已解压原生皮肤："+file_name)

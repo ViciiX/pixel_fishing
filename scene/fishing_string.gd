@@ -18,8 +18,8 @@ func _draw():
 	draw_line(pos, anim_pos, Color.WHITE)
 
 func _physics_process(delta: float):
-	if visible:
-		if $anim_timer.time_left > 0:
+	if (visible):
+		if ($anim_timer.time_left > 0):
 			anim_pos += (target_pos - pos)/(max_time/delta)
 			$buoy.position = anim_pos
 			queue_redraw()
@@ -29,9 +29,9 @@ func _physics_process(delta: float):
 			var areas = $buoy.get_overlapping_areas()
 			var is_can_fishing = false
 			for area in areas:
-				if area.name == "fishing_area":
+				if (area.name == "fishing_area"):
 					is_can_fishing = true
-			if !is_can_fishing:
+			if (!is_can_fishing):
 				fm.cancel_fishing()
 			else:
 				summon_spray($buoy.position-Vector2(8,6))
@@ -57,7 +57,7 @@ func move_to(mp: Vector2,  time = 2, distance = -1):
 	mouse_pos = mp
 	locate()
 	anim_pos = pos
-	if distance > 0:
+	if (distance > 0):
 		target_pos = anim_pos.move_toward(mouse_pos, distance)
 	else:
 		target_pos = mouse_pos
@@ -71,8 +71,8 @@ func locate():
 	var img: Image = $"../Anima".sprite_frames.get_frame_texture("{anima}_{fr}_f".format({"anima":fm.anima, "fr":fm.fishing_rod}),0).get_image()
 	var cfg = fm.skin_config
 	var loc = cfg.data.get("fishing_rod_position",Array())
-	if loc.size() == 0:
-		if fm.direction == "right":
+	if (loc.size() == 0):
+		if (fm.direction == "right"):
 			img.flip_x()
 		pos = Util.get_side_first_pixel(img, fm.direction)
 		pos += $"../Anima".offset

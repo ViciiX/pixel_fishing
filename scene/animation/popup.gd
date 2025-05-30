@@ -25,13 +25,13 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	modulate.a = 0
 	$text.text = content
-	if width == null:
+	if (width == null):
 		var arr = Array(content.split("\n"))
 		#取文本各行中最长一行的字数
 		var filter = func(a,b): return a.length() > b.length()
-		var rect_x = arr.reduce(func(a, b): if filter.call(a, b): return a else: return b).length()
+		var rect_x = arr.reduce(func(a, b): if (filter.call(a, b)): return a else: return b).length()
 		var rect_y = arr.size()
-		if mode == 0:
+		if (mode == 0):
 			"""
 			设文本单行时所占面积为S, 按比例x,y转换后目标的长和宽为a, b
 			设a = x*k, b = y*k,
