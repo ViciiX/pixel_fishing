@@ -148,100 +148,110 @@ func load_skin(sname = skin):
 
 func _physics_process(delta):
 	if state == "move":
-		is_moving = false
-		if Input.is_action_pressed("move_up"):
-			move_and_collide(Vector2(0,0-speed*delta))
-			if !is_moving:
-				anima = "up"
-				direction = "up"
-				$Anima.flip_h = false
-				if !$Anima.is_playing():
-					$Anima.set_frame(1)
-			is_moving = true
-		
-		if Input.is_action_pressed("move_down"):
-			move_and_collide(Vector2(0,speed*delta))
-			if !is_moving:
-				anima = "down"
-				direction = "down"
-				$Anima.flip_h = false
-				if !$Anima.is_playing():
-					$Anima.set_frame(1)
-			is_moving = true
-		
-		if Input.is_action_pressed("move_left"):
-			move_and_collide(Vector2(0-speed*delta,0))
-			if !is_moving:
-				anima = "side"
-				direction = "left"
-				$Anima.flip_h = false
-				if !$Anima.is_playing():
-					$Anima.set_frame(1)
-			is_moving = true
-		
-		if Input.is_action_pressed("move_right"):
-			move_and_collide(Vector2(speed*delta,0))
-			if !is_moving:
-				anima = "side"
-				direction = "right"
-				$Anima.flip_h = true
-			is_moving = true
-		if is_moving == true:
-			$Anima.animation = anima
-			$Anima.play()
-		else:
-			if anima.ends_with("f") == false:
-				$Anima.set_animation("%s_static" % anima)
-				$Anima.stop()
-	
+		move_process(delta)
 	elif state == "fishing":
 		if is_holding:
-			is_holding = !is_moving
-			$Anima.position = Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0))
+			#蓄力时颤抖
+			shake(1.0)
 		else:
 			$Anima.position = Vector2(0,0)
-			
-func _input(event):
 	if visible == true:
-		if state == "move" and !is_moving and $"../seaside".is_can_fishing:
-			if Input.is_action_just_pressed("fishing"):
-				var mouse_pos = get_global_mouse_position()
-				if (direction == "up" and mouse_pos.y < position.y) or \
-				(direction == "down" and mouse_pos.y > position.y) or \
-				(direction == "left" and mouse_pos.x < position.x)or \
-				(direction == "right" and mouse_pos.x > position.x):
-					is_holding = true
-					state = "fishing"
-					$fish_timer.start()
-					$Anima.set_animation("{anima}_{fr}_f".format({"anima":anima, "fr":fishing_rod}))
-					$Anima.play()
-					$power_bar.start()
-				AnimationManager.new("alert", {}, self)
-		elif state == "fishing":
-			if Input.is_action_just_released("fishing") and is_holding:
-				var mouse_pos = get_global_mouse_position()
-				if (direction == "up" and mouse_pos.y < position.y) or \
-				(direction == "down" and mouse_pos.y > position.y) or \
-				(direction == "left" and mouse_pos.x < position.x)or \
-				(direction == "right" and mouse_pos.x > position.x):
-					is_holding = false
-					$fishing_string.visible = true
-					var percent = ($fish_timer.wait_time - $fish_timer.time_left)/$fish_timer.wait_time #蓄力程度
-					var distance = GlobalConst.FISHING_DISTANCE[fishing_rod] * percent + 10
-					var time = distance/(200*(percent+0.5))
-					$fish_timer.stop()
-					$fishing_string.move_to(get_local_mouse_position(), time, distance)
-					$power_bar.visible = false
-				else:
-					$fishing_string.visible = false
-					$fishing_string/buoy.visible = false
-					state = "move"
-					$power_bar.visible = false
-			if Input.is_action_just_pressed("fishing"):
+		fishing_process()
+
+func fishing_process():
+	if state == "move" and is_moving == false and $"../seaside".is_can_fishing:
+		if Input.is_action_just_pressed("fishing"):
+			if detect_direction(direction):
+				is_holding = true
+				state = "fishing"
+				$fish_timer.start()
+				$Anima.set_animation("{anima}_{fr}_f".format({"anima":anima, "fr":fishing_rod}))
+				$Anima.play()
+				$power_bar.start()
+			AnimationManager.new("alert", {}, self)
+	elif state == "fishing":
+		#释放鱼钩
+		if Input.is_action_just_released("fishing") and is_holding:
+			if detect_direction(direction):
+				is_holding = false
+				$fishing_string.visible = true
+				var percent = ($fish_timer.wait_time - $fish_timer.time_left)/$fish_timer.wait_time #蓄力程度
+				var distance = GlobalConst.FISHING_DISTANCE[fishing_rod] * percent + 10
+				var time = distance/(200*(percent+0.5))
+				$fish_timer.stop()
+				$fishing_string.move_to(get_local_mouse_position(), time, distance)
+				$power_bar.visible = false
+			else:
 				$fishing_string.visible = false
 				$fishing_string/buoy.visible = false
-				$power_bar.visible = false
 				state = "move"
+				$power_bar.visible = false
+		#取消钓鱼动画
+		if Input.is_action_just_pressed("fishing"):
+			$fishing_string.visible = false
+			$fishing_string/buoy.visible = false
+			$power_bar.visible = false
+			state = "move"
+
+func move_process(delta):
+	is_moving = false
+	if Input.is_action_pressed("move_up"):
+		move_and_collide(Vector2(0,0-speed*delta))
+		if !is_moving:
+			anima = "up"
+			direction = "up"
+			$Anima.flip_h = false
+			if !$Anima.is_playing():
+				$Anima.set_frame(1)
+		is_moving = true
+	
+	if Input.is_action_pressed("move_down"):
+		move_and_collide(Vector2(0,speed*delta))
+		if !is_moving:
+			anima = "down"
+			direction = "down"
+			$Anima.flip_h = false
+			if !$Anima.is_playing():
+				$Anima.set_frame(1)
+		is_moving = true
+	
+	if Input.is_action_pressed("move_left"):
+		move_and_collide(Vector2(0-speed*delta,0))
+		if !is_moving:
+			anima = "side"
+			direction = "left"
+			$Anima.flip_h = false
+			if !$Anima.is_playing():
+				$Anima.set_frame(1)
+		is_moving = true
+	
+	if Input.is_action_pressed("move_right"):
+		move_and_collide(Vector2(speed*delta,0))
+		if !is_moving:
+			anima = "side"
+			direction = "right"
+			$Anima.flip_h = true
+		is_moving = true
+	if is_moving == true:
+		$Anima.animation = anima
+		$Anima.play()
+	else:
+		if anima.ends_with("f") == false:
+			$Anima.set_animation("%s_static" % anima)
+			$Anima.stop()
+
+func shake(strength):
+	$Anima.position = Vector2(randf_range(-strength,strength),randf_range(-strength,strength))
+
+func detect_direction(direction):
+	var mouse_pos = get_global_mouse_position()
+	var cond = {
+	"up": mouse_pos.y < position.y,
+	"down": mouse_pos.y > position.y,
+	"left": mouse_pos.x < position.x,
+	"right": mouse_pos.x > position.x
+	}
+	return direction in cond and cond[direction]
 
 func cancel_fishing():
 	$fishing_string.visible = false

@@ -1,11 +1,13 @@
 """
 @brief 感叹号图标的动画
 @var wait_time 动画持续时间
+@var is_shake 出现时人物是否颤抖
 """
 
 extends Node2D
 
 var wait_time = 0.3
+var is_shake = true
 var parent
 
 signal complete
@@ -22,6 +24,12 @@ func _ready():
 	pos += Vector2(rect.size)/5
 	position = pos
 	var tween = get_tree().create_tween()
+	var shake_tween = get_tree().create_tween().set_loops()
+	shake_tween.tween_callback(parent.shake.bind(1.0)).set_delay(0.01)
 	tween.tween_interval(wait_time)
-	tween.tween_callback(func(): complete.emit(self))
+	var f = func():
+		complete.emit(self)
+		shake_tween.kill()
+		parent.shake(0)
+	tween.tween_callback(f)
 	
